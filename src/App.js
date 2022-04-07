@@ -142,7 +142,9 @@ function App() {
               }}
               renderInput={(params) => <TextField {...params} />}
             />
-            <Button variant="contained">Feed that fat cat!</Button>
+            <Button disabled={feedNow} variant="contained">
+              Feed that fat cat!
+            </Button>
           </div>
         </div>
       </ThemeProvider>
