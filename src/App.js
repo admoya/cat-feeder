@@ -142,7 +142,11 @@ function App() {
               }}
               renderInput={(params) => <TextField {...params} />}
             />
-            <Button disabled={feedNow} variant="contained">
+            <Button
+              disabled={feedNow}
+              variant="contained"
+              onClick={() => set(feedNowRef, true)}
+            >
               Feed that fat cat!
             </Button>
           </div>
