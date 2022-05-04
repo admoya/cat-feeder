@@ -83,12 +83,14 @@ function App() {
   */
   const setScheduledDate = (scheduledDatetime) => {
     const currentDateTime = new Date();
+    scheduledDatetime.setFullYear(currentDateTime.getFullYear());
+    scheduledDatetime.setMonth(currentDateTime.getMonth());
     scheduledDatetime.setDate(currentDateTime.getDate());
     if (currentDateTime >= scheduledDatetime) {
       scheduledDatetime.setDate(scheduledDatetime.getDate() + 1);
     }
     console.log(
-      `current date: ${currentDateTime}\nNew date: ${scheduledDatetime}`
+      `current date: ${currentDateTime}\nNew scheduled date: ${scheduledDatetime}`
     );
     scheduledDatetime.setSeconds(0);
     scheduledDatetime.setMilliseconds(0);
@@ -127,7 +129,7 @@ function App() {
                   checked={timerOn}
                   onChange={(event) => {
                     setScheduledDate(new Date(timerValue));
-                    set(timerOnRef, event.target.checked);
+                    // set(timerOnRef, event.target.checked);
                   }}
                 />
               }
