@@ -129,7 +129,7 @@ function App() {
                   checked={timerOn}
                   onChange={(event) => {
                     setScheduledDate(new Date(timerValue));
-                    // set(timerOnRef, event.target.checked);
+                    set(timerOnRef, event.target.checked);
                   }}
                 />
               }
