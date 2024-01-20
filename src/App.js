@@ -5,6 +5,7 @@ import {
   getStorage,
   ref as storageRef,
   getDownloadURL,
+  getMetadata
 } from "firebase/storage";
 import "./App.css";
 import {
@@ -54,6 +55,12 @@ function App() {
   const [timerValue, setTimerValue] = useState(new Date());
   const [streamUrl, setStreamUrl] = useState();
   const [streamCacheBreaker, setStreamCacheBreaker] = useState(Date.now());
+  const [imageLabel, setImageLabel] = useState('');
+
+  const updateImageData = async () => {
+    const metadata = await getMetadata(imageRef);
+    setImageLabel(`Photo time: ${metadata.timeCreated}`);
+  }
 
   useEffect(() => {
     onValue(feedNowRef, (snapshot) => setFeedNow(snapshot.val()));
@@ -62,6 +69,7 @@ function App() {
     onValue(timerValueRef, (snapshot) => setTimerValue(snapshot.val()));
 
     getDownloadURL(imageRef).then((url) => setStreamUrl(url));
+    updateImageData();
   }, []);
 
   useEffect(() => {
@@ -69,6 +77,7 @@ function App() {
     if (streamOn) {
       interval = setInterval(() => {
         setStreamCacheBreaker(Date.now());
+        updateImageData();
       }, 1000);
     }
     return () => {
@@ -111,6 +120,7 @@ function App() {
               src={`${streamUrl}&cachebreaker=${streamCacheBreaker}`}
               alt="Proof of life"
             ></img>
+            <p>{imageLabel}</p>
             <FormControlLabel
               labelPlacement="start"
               label="Camera"
